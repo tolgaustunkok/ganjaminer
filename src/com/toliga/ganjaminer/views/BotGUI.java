@@ -28,13 +28,16 @@ public class BotGUI extends JFrame {
     private JTextField profileNameTextField;
     private JSpinner workingRadiusSpinner;
     private JCheckBox chckbxUsePathCreator;
+    private JSlider tabCheckingSlider;
+    private JSlider cameraSlider;
+    private JSlider mouseSlider;
 
     private JPanel contentPane;
 
     public BotGUI() {
         setTitle("Ganja Miner");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 381);
+        setBounds(100, 100, 460, 381);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -57,6 +60,7 @@ public class BotGUI extends JFrame {
         panel_1.add(tabbedPane);
 
         JPanel settingsTab = new JPanel();
+        settingsTab.setBorder(new TitledBorder(null, "Settings", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         tabbedPane.addTab("Settings", null, settingsTab, null);
         settingsTab.setLayout(new BorderLayout(10, 10));
 
@@ -90,7 +94,6 @@ public class BotGUI extends JFrame {
         FlowLayout flowLayout = (FlowLayout) panel_5.getLayout();
         flowLayout.setAlignment(FlowLayout.LEFT);
         GridBagConstraints gbc_panel_5 = new GridBagConstraints();
-        gbc_panel_5.insets = new Insets(0, 0, 5, 0);
         gbc_panel_5.fill = GridBagConstraints.BOTH;
         gbc_panel_5.gridx = 1;
         gbc_panel_5.gridy = 2;
@@ -100,7 +103,6 @@ public class BotGUI extends JFrame {
         panel_5.add(lblNewLabel);
 
         workingRadiusSpinner = new JSpinner();
-        workingRadiusSpinner.setValue(-1);
         workingRadiusSpinner.setPreferredSize(new Dimension(50, 20));
         workingRadiusSpinner.setModel(new SpinnerNumberModel(-1, -100, 100, 1));
         panel_5.add(workingRadiusSpinner);
@@ -150,10 +152,11 @@ public class BotGUI extends JFrame {
         scrollPane.setAutoscrolls(true);
         panel_3.add(scrollPane, BorderLayout.CENTER);
 
-        mineTypesList = new JList(rockListModel);
+        mineTypesList = new JList(new DefaultListModel<String>());
         scrollPane.setViewportView(mineTypesList);
 
         JPanel magicTab = new JPanel();
+        magicTab.setBorder(new TitledBorder(null, "Magic Configuration", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         tabbedPane.addTab("Magic", null, magicTab, null);
         SpringLayout sl_magicTab = new SpringLayout();
         magicTab.setLayout(sl_magicTab);
@@ -176,7 +179,6 @@ public class BotGUI extends JFrame {
         sl_magicTab.putConstraint(SpringLayout.EAST, chckbxHighAlch, 0, SpringLayout.EAST, comboBox);
         magicTab.add(chckbxHighAlch);
 
-
         textField = new JTextField();
         sl_magicTab.putConstraint(SpringLayout.NORTH, textField, 28, SpringLayout.NORTH, chckbxHighAlch);
         sl_magicTab.putConstraint(SpringLayout.WEST, textField, 30, SpringLayout.WEST, magicTab);
@@ -185,40 +187,82 @@ public class BotGUI extends JFrame {
         textField.setColumns(10);
 
         JPanel antibanTab = new JPanel();
+        antibanTab.setBorder(new TitledBorder(null, "Antiban Configuration", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         tabbedPane.addTab("Antiban", null, antibanTab, null);
+        GridBagLayout gbl_antibanTab = new GridBagLayout();
+        gbl_antibanTab.columnWidths = new int[]{0, 0, 0};
+        gbl_antibanTab.rowHeights = new int[]{0, 0, 0, 0};
+        gbl_antibanTab.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        gbl_antibanTab.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+        antibanTab.setLayout(gbl_antibanTab);
 
+        JLabel lblRandomCameraMovement = new JLabel("Random Camera Movement:");
+        GridBagConstraints gbc_lblRandomCameraMovement = new GridBagConstraints();
+        gbc_lblRandomCameraMovement.insets = new Insets(0, 0, 5, 5);
+        gbc_lblRandomCameraMovement.anchor = GridBagConstraints.EAST;
+        gbc_lblRandomCameraMovement.gridx = 0;
+        gbc_lblRandomCameraMovement.gridy = 0;
+        antibanTab.add(lblRandomCameraMovement, gbc_lblRandomCameraMovement);
+
+        cameraSlider = new JSlider();
+        cameraSlider.setPaintTicks(true);
+        cameraSlider.setMajorTickSpacing(10);
+        GridBagConstraints gbc_cameraSlider = new GridBagConstraints();
+        gbc_cameraSlider.insets = new Insets(0, 0, 5, 0);
+        gbc_cameraSlider.gridx = 1;
+        gbc_cameraSlider.gridy = 0;
+        antibanTab.add(cameraSlider, gbc_cameraSlider);
+
+        JLabel lblRandomMouseMovement = new JLabel("Random Mouse Movement:");
+        GridBagConstraints gbc_lblRandomMouseMovement = new GridBagConstraints();
+        gbc_lblRandomMouseMovement.anchor = GridBagConstraints.EAST;
+        gbc_lblRandomMouseMovement.insets = new Insets(0, 0, 5, 5);
+        gbc_lblRandomMouseMovement.gridx = 0;
+        gbc_lblRandomMouseMovement.gridy = 1;
+        antibanTab.add(lblRandomMouseMovement, gbc_lblRandomMouseMovement);
+
+        mouseSlider = new JSlider();
+        mouseSlider.setPaintTicks(true);
+        mouseSlider.setMajorTickSpacing(10);
+        GridBagConstraints gbc_mouseSlider = new GridBagConstraints();
+        gbc_mouseSlider.insets = new Insets(0, 0, 5, 0);
+        gbc_mouseSlider.gridx = 1;
+        gbc_mouseSlider.gridy = 1;
+        antibanTab.add(mouseSlider, gbc_mouseSlider);
+
+        JLabel lblRandomTabChecking = new JLabel("Random Tab Checking:");
+        GridBagConstraints gbc_lblRandomTabChecking = new GridBagConstraints();
+        gbc_lblRandomTabChecking.insets = new Insets(0, 0, 0, 5);
+        gbc_lblRandomTabChecking.anchor = GridBagConstraints.EAST;
+        gbc_lblRandomTabChecking.gridx = 0;
+        gbc_lblRandomTabChecking.gridy = 2;
+        antibanTab.add(lblRandomTabChecking, gbc_lblRandomTabChecking);
+
+        tabCheckingSlider = new JSlider();
+        tabCheckingSlider.setMajorTickSpacing(10);
+        tabCheckingSlider.setPaintTicks(true);
+        GridBagConstraints gbc_tabCheckingSlider = new GridBagConstraints();
+        gbc_tabCheckingSlider.gridx = 1;
+        gbc_tabCheckingSlider.gridy = 2;
+        antibanTab.add(tabCheckingSlider, gbc_tabCheckingSlider);
 
         JPanel pathCreatorTab = new JPanel();
+        pathCreatorTab.setBorder(new TitledBorder(null, "Path Configuration", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         tabbedPane.addTab("Path Creator", null, pathCreatorTab, null);
         GridBagLayout gbl_pathCreatorTab = new GridBagLayout();
         gbl_pathCreatorTab.columnWidths = new int[]{0, 0, 0};
-        gbl_pathCreatorTab.rowHeights = new int[]{0, 0, 0, 0};
+        gbl_pathCreatorTab.rowHeights = new int[]{0, 0, 0};
         gbl_pathCreatorTab.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-        gbl_pathCreatorTab.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+        gbl_pathCreatorTab.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
         pathCreatorTab.setLayout(gbl_pathCreatorTab);
 
-        JLabel lblWalkToBank = new JLabel("Walk to bank");
-        lblWalkToBank.setFont(new Font("Tahoma", Font.BOLD, 13));
-        GridBagConstraints gbc_lblWalkToBank = new GridBagConstraints();
-        gbc_lblWalkToBank.insets = new Insets(0, 0, 5, 5);
-        gbc_lblWalkToBank.gridx = 0;
-        gbc_lblWalkToBank.gridy = 0;
-        pathCreatorTab.add(lblWalkToBank, gbc_lblWalkToBank);
-
-        JLabel lblWalkFromBank = new JLabel("Walk from bank");
-        lblWalkFromBank.setFont(new Font("Tahoma", Font.BOLD, 13));
-        GridBagConstraints gbc_lblWalkFromBank = new GridBagConstraints();
-        gbc_lblWalkFromBank.insets = new Insets(0, 0, 5, 0);
-        gbc_lblWalkFromBank.gridx = 1;
-        gbc_lblWalkFromBank.gridy = 0;
-        pathCreatorTab.add(lblWalkFromBank, gbc_lblWalkFromBank);
-
         JScrollPane scrollPane_1 = new JScrollPane();
+        scrollPane_1.setBorder(new TitledBorder(null, "Walk To Bank", TitledBorder.CENTER, TitledBorder.TOP, null, null));
         GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
         gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
         gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
         gbc_scrollPane_1.gridx = 0;
-        gbc_scrollPane_1.gridy = 1;
+        gbc_scrollPane_1.gridy = 0;
         pathCreatorTab.add(scrollPane_1, gbc_scrollPane_1);
 
         listWalkToBank = new JList(new DefaultListModel<PathProfile>());
@@ -226,11 +270,12 @@ public class BotGUI extends JFrame {
         scrollPane_1.setViewportView(listWalkToBank);
 
         JScrollPane scrollPane_2 = new JScrollPane();
+        scrollPane_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Walk From Bank", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
         GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
         gbc_scrollPane_2.insets = new Insets(0, 0, 5, 0);
         gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
         gbc_scrollPane_2.gridx = 1;
-        gbc_scrollPane_2.gridy = 1;
+        gbc_scrollPane_2.gridy = 0;
         pathCreatorTab.add(scrollPane_2, gbc_scrollPane_2);
 
         listWalkFromBank = new JList(new DefaultListModel<PathProfile>());
@@ -241,10 +286,11 @@ public class BotGUI extends JFrame {
         FlowLayout flowLayout_1 = (FlowLayout) panel_6.getLayout();
         flowLayout_1.setAlignment(FlowLayout.LEFT);
         GridBagConstraints gbc_panel_6 = new GridBagConstraints();
+        gbc_panel_6.anchor = GridBagConstraints.WEST;
         gbc_panel_6.insets = new Insets(0, 0, 0, 5);
         gbc_panel_6.fill = GridBagConstraints.BOTH;
         gbc_panel_6.gridx = 0;
-        gbc_panel_6.gridy = 2;
+        gbc_panel_6.gridy = 1;
         pathCreatorTab.add(panel_6, gbc_panel_6);
 
         JLabel lblProfileName = new JLabel("Profile Name:");
@@ -257,7 +303,7 @@ public class BotGUI extends JFrame {
         btnCreatePath = new JButton("Create Path");
         GridBagConstraints gbc_btnCreatePath = new GridBagConstraints();
         gbc_btnCreatePath.gridx = 1;
-        gbc_btnCreatePath.gridy = 2;
+        gbc_btnCreatePath.gridy = 1;
         pathCreatorTab.add(btnCreatePath, gbc_btnCreatePath);
 
         JPanel feedbackTab = new JPanel();
@@ -270,10 +316,6 @@ public class BotGUI extends JFrame {
 
     public JButton getBtnStop() {
         return btnStop;
-    }
-
-    public DefaultListModel<String> getRockListModel() {
-        return rockListModel;
     }
 
     public JComboBox getBankTypeComboBox() {
@@ -336,5 +378,17 @@ public class BotGUI extends JFrame {
 
     public JCheckBox getChckbxUsePathCreator() {
         return chckbxUsePathCreator;
+    }
+
+    public JSlider getTabCheckingSlider() {
+        return tabCheckingSlider;
+    }
+
+    public JSlider getCameraSlider() {
+        return cameraSlider;
+    }
+
+    public JSlider getMouseSlider() {
+        return mouseSlider;
     }
 }

@@ -92,12 +92,12 @@ public class GUIController {
 
     private void add(ActionEvent event) {
         RockTypes chosenRockType = (RockTypes) view.getMineTypeComboBox().getSelectedItem();
-        view.getRockListModel().addElement(chosenRockType.name());
+        ((DefaultListModel<String>)(view.getMineTypesList().getModel())).addElement(chosenRockType.name());
         guiModel.addChosenRockType(chosenRockType);
     }
 
     private void remove(ActionEvent event) {
-        view.getRockListModel().remove(view.getMineTypesList().getSelectedIndex());
+        ((DefaultListModel<String>)(view.getMineTypesList().getModel())).remove(view.getMineTypesList().getSelectedIndex());
         guiModel.removeChosenRockType((RockTypes) view.getMineTypesList().getSelectedValue());
     }
 

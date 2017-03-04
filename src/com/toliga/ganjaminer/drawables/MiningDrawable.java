@@ -38,7 +38,6 @@ public class MiningDrawable implements Drawable {
                 TimeUnit.MILLISECONDS.toSeconds(timeToLevelUp) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeToLevelUp))), 420, 416);
 
         int realLevel = context.getSkills().getRealLevel(Skill.MINING);
-        int boostedLevel = context.getSkills().getBoostedLevels(Skill.MINING);
-        graphics.drawString(realLevel + " + " + (boostedLevel - realLevel), 420, 433);
+        graphics.drawString(String.valueOf(realLevel), 420, 433);
     }
 }
