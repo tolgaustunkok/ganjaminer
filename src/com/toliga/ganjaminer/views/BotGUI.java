@@ -31,6 +31,8 @@ public class BotGUI extends JFrame {
     private JSlider tabCheckingSlider;
     private JSlider cameraSlider;
     private JSlider mouseSlider;
+    private JTextArea feedbackTextArea;
+    private JButton btnSubmit;
 
     private JPanel contentPane;
 
@@ -307,7 +309,34 @@ public class BotGUI extends JFrame {
         pathCreatorTab.add(btnCreatePath, gbc_btnCreatePath);
 
         JPanel feedbackTab = new JPanel();
+        feedbackTab.setBorder(new TitledBorder(null, "Please inform us about any suggestions or bug issues.", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         tabbedPane.addTab("Feedback", null, feedbackTab, null);
+        GridBagLayout gbl_feedbackTab = new GridBagLayout();
+        gbl_feedbackTab.columnWidths = new int[]{0, 0};
+        gbl_feedbackTab.rowHeights = new int[]{0, 0, 0};
+        gbl_feedbackTab.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+        gbl_feedbackTab.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+        feedbackTab.setLayout(gbl_feedbackTab);
+
+        JScrollPane scrollPane_3 = new JScrollPane();
+        scrollPane_3.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane_3.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        GridBagConstraints gbc_scrollPane_3 = new GridBagConstraints();
+        gbc_scrollPane_3.insets = new Insets(0, 0, 5, 0);
+        gbc_scrollPane_3.fill = GridBagConstraints.BOTH;
+        gbc_scrollPane_3.gridx = 0;
+        gbc_scrollPane_3.gridy = 0;
+        feedbackTab.add(scrollPane_3, gbc_scrollPane_3);
+
+        feedbackTextArea = new JTextArea();
+        feedbackTextArea.setLineWrap(true);
+        scrollPane_3.setViewportView(feedbackTextArea);
+
+        btnSubmit = new JButton("Submit");
+        GridBagConstraints gbc_btnSubmit = new GridBagConstraints();
+        gbc_btnSubmit.gridx = 0;
+        gbc_btnSubmit.gridy = 1;
+        feedbackTab.add(btnSubmit, gbc_btnSubmit);
     }
 
     public JButton getBtnStart() {
@@ -390,5 +419,13 @@ public class BotGUI extends JFrame {
 
     public JSlider getMouseSlider() {
         return mouseSlider;
+    }
+
+    public JTextArea getFeedbackTextArea() {
+        return feedbackTextArea;
+    }
+
+    public JButton getBtnSubmit() {
+        return btnSubmit;
     }
 }

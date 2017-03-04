@@ -1,5 +1,6 @@
 package com.toliga.ganjaminer.controllers;
 
+import com.toliga.ganjabots.core.Feedback;
 import com.toliga.ganjabots.core.SaveManager;
 import com.toliga.ganjabots.path.PathProfile;
 import com.toliga.ganjaminer.GanjaMinerMain;
@@ -36,6 +37,7 @@ public class GUIController {
         view.getRemoveButton().addActionListener(this::remove);
         view.getBankTypeComboBox().addActionListener(this::bankComboBox);
         view.getBtnCreatePath().addActionListener(this::createPath);
+        view.getBtnSubmit().addActionListener(this::submitFeedback);
 
         saveManager = new SaveManager(GlobalSettings.SAVE_LOCATION + "save.xml");
 
@@ -114,5 +116,10 @@ public class GUIController {
         } else {
             JOptionPane.showMessageDialog(view, "Please enter a name for the profile.", "Ganja Miner", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    private void submitFeedback(ActionEvent event) {
+        Feedback feedback = new Feedback();
+        feedback.SendString(view.getFeedbackTextArea().getText(), "unknown", "R2FuamEgTWluZXI=");
     }
 }
