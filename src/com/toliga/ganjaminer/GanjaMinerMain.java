@@ -26,7 +26,6 @@ public class GanjaMinerMain extends AbstractScript {
 
     @Override
     public void onStart() {
-        super.onStart();
         stateScheduler = new StateScheduler(this, new CheckInventoryState());
         antibanManager = new GanjaMinerAntibanManager(this);
         guiBuilder = new InGameGUIBuilder(this, "Ganja Miner", VERSION, new Color(155, 123, 180), new MiningDrawable(this));
@@ -56,7 +55,6 @@ public class GanjaMinerMain extends AbstractScript {
 
     @Override
     public void onPaint(Graphics graphics) {
-        super.onPaint(graphics);
         if (STARTED) {
             guiBuilder.draw((Graphics2D) graphics);
         }
@@ -66,6 +64,5 @@ public class GanjaMinerMain extends AbstractScript {
     public void onExit() {
         view.setVisible(false);
         view.dispose();
-        super.onExit();
     }
 }

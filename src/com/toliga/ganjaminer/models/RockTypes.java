@@ -1,5 +1,5 @@
 package com.toliga.ganjaminer.models;
 
 public enum RockTypes {
-    Copper, Tin, Clay, Coal, Iron, Silver, Gold, Mithril
+    Copper, Tin, Clay, Coal, Iron, Silver, Gold, Mithril, Adamantite, Runite
 }

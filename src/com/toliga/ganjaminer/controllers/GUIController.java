@@ -85,11 +85,14 @@ public class GUIController {
         }
 
         GanjaMinerMain.STARTED = true;
+        view.getBtnStart().setEnabled(false);
+        view.getBtnStop().setEnabled(true);
     }
 
     private void stop(ActionEvent event) {
-        AbstractScript.log("Stop");
         GanjaMinerMain.STARTED = false;
+        view.getBtnStart().setEnabled(true);
+        view.getBtnStop().setEnabled(false);
     }
 
     private void add(ActionEvent event) {

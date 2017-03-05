@@ -11,7 +11,6 @@ import java.awt.*;
 public class BotGUI extends JFrame {
     private JButton btnStart;
     private JButton btnStop;
-    private DefaultListModel<String> rockListModel = new DefaultListModel<>();
     private JComboBox bankTypeComboBox;
     private JComboBox mineTypeComboBox;
     private JButton addButton;
@@ -40,6 +39,7 @@ public class BotGUI extends JFrame {
         setTitle("Ganja Miner");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 460, 381);
+        setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -52,6 +52,7 @@ public class BotGUI extends JFrame {
         panel.add(btnStart);
 
         btnStop = new JButton("Stop");
+        btnStop.setEnabled(false);
         panel.add(btnStop);
 
         JPanel panel_1 = new JPanel();
@@ -337,6 +338,10 @@ public class BotGUI extends JFrame {
         gbc_btnSubmit.gridx = 0;
         gbc_btnSubmit.gridy = 1;
         feedbackTab.add(btnSubmit, gbc_btnSubmit);
+
+        // TODO: Delete following lines upon completion
+        tabbedPane.setEnabledAt(1, false);
+        tabbedPane.setEnabledAt(2, false);
     }
 
     public JButton getBtnStart() {
@@ -409,7 +414,7 @@ public class BotGUI extends JFrame {
         return chckbxUsePathCreator;
     }
 
-    public JSlider getTabCheckingSlider() {
+    public JSlider getCheckingSlider() {
         return tabCheckingSlider;
     }
 

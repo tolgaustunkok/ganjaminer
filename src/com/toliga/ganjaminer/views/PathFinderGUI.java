@@ -40,6 +40,7 @@ public class PathFinderGUI extends JFrame {
         setTitle("GanjaSmuggler - Path Creator");
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
+        setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -96,8 +97,12 @@ public class PathFinderGUI extends JFrame {
         rdbtnToBank.setHorizontalAlignment(SwingConstants.CENTER);
         panel_4.add(rdbtnToBank, BorderLayout.NORTH);
 
+        JScrollPane scrollPane_1 = new JScrollPane();
+        scrollPane_1.setAutoscrolls(true);
+
         JList toBankList = new JList(toListModel);
-        panel_4.add(toBankList, BorderLayout.CENTER);
+        scrollPane_1.setViewportView(toBankList);
+        panel_4.add(scrollPane_1, BorderLayout.CENTER);
 
         JPanel panel_5 = new JPanel();
         panel_3.add(panel_5);
@@ -107,8 +112,12 @@ public class PathFinderGUI extends JFrame {
         rdbtnFromBank.setHorizontalAlignment(SwingConstants.CENTER);
         panel_5.add(rdbtnFromBank, BorderLayout.NORTH);
 
+        JScrollPane scrollPane_2 = new JScrollPane();
+        scrollPane_2.setAutoscrolls(true);
+
         JList fromBankList = new JList(fromListModel);
-        panel_5.add(fromBankList, BorderLayout.CENTER);
+        scrollPane_2.setViewportView(fromBankList);
+        panel_5.add(scrollPane_2, BorderLayout.CENTER);
 
         ButtonGroup btnGroup = new ButtonGroup();
         btnGroup.add(rdbtnFromBank);

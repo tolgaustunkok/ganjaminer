@@ -19,6 +19,8 @@ public class MiningState implements State {
     private final int[] SILVER_ID = { 7457, 7490 };
     private final int[] GOLD_ID = { 7491, 7458 };
     private final int[] MITHRIL_ID = { 7492, 7459 };
+    private final int[] ADAMANTITE_ID = { 7460, 7493 };
+    private final int[] RUNITE_ID = { 7494 };
 
     private boolean interacting = false;
     private Tile rockTile;
@@ -60,6 +62,12 @@ public class MiningState implements State {
                     break;
                 case Mithril:
                     mineName = MITHRIL_ID;
+                    break;
+                case Adamantite:
+                    mineName = ADAMANTITE_ID;
+                    break;
+                case Runite:
+                    mineName = RUNITE_ID;
                     break;
                 default:
                     mineName = TIN_ID;
