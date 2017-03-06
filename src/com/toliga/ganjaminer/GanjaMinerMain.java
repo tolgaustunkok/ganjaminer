@@ -17,7 +17,7 @@ import java.awt.*;
 @ScriptManifest(author = "GanjaSmuggler", category = Category.MINING, name = "Ganja Miner", description = "Ganja Miner description will be here.", version = 1.0)
 public class GanjaMinerMain extends AbstractScript {
 
-    public static final String VERSION = "0.1.0";
+    public static final String VERSION = "0.1.1";
     public static boolean STARTED = false;
     private StateScheduler stateScheduler;
     private GanjaMinerAntibanManager antibanManager;
