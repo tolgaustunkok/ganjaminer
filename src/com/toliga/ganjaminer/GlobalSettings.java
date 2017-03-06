@@ -4,11 +4,12 @@ import com.toliga.ganjabots.path.PathProfile;
 import com.toliga.ganjaminer.models.RockTypes;
 import org.dreambot.api.methods.map.Tile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GlobalSettings {
-    public static final String SAVE_LOCATION = System.getProperty("user.home") + "\\DreamBot\\Scripts\\GanjaMiner\\";
+    public static final String SAVE_LOCATION = System.getProperty("user.home") + File.separator + "DreamBot" + File.separator + "Scripts" + File.separator + "GanjaMiner" + File.separator;
 
     public static Tile SOURCE_TILE = null;
 

@@ -97,6 +97,10 @@ public class MiningState implements State {
                 }
             }
 
+            if (context.getInventory().isFull()) {
+                return true;
+            }
+
             if (count == objects.length) {
                 return true;
             }
