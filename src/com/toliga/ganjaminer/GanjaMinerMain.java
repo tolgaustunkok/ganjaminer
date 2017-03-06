@@ -6,6 +6,7 @@ import com.toliga.ganjaminer.controllers.GUIController;
 import com.toliga.ganjaminer.drawables.MiningDrawable;
 import com.toliga.ganjaminer.models.GUIModel;
 import com.toliga.ganjaminer.states.CheckInventoryState;
+import com.toliga.ganjaminer.states.StartState;
 import com.toliga.ganjaminer.views.BotGUI;
 import org.dreambot.api.methods.Calculations;
 import org.dreambot.api.script.AbstractScript;
@@ -17,7 +18,7 @@ import java.awt.*;
 @ScriptManifest(author = "GanjaSmuggler", category = Category.MINING, name = "Ganja Miner", description = "Ganja Miner description will be here.", version = 1.0)
 public class GanjaMinerMain extends AbstractScript {
 
-    public static final String VERSION = "0.1.1";
+    public static final String VERSION = "0.1.4";
     public static boolean STARTED = false;
     private StateScheduler stateScheduler;
     private GanjaMinerAntibanManager antibanManager;
@@ -26,7 +27,7 @@ public class GanjaMinerMain extends AbstractScript {
 
     @Override
     public void onStart() {
-        stateScheduler = new StateScheduler(this, new CheckInventoryState());
+        stateScheduler = new StateScheduler(this, new StartState());
         antibanManager = new GanjaMinerAntibanManager(this);
         guiBuilder = new InGameGUIBuilder(this, "Ganja Miner", VERSION, new Color(155, 123, 180), new MiningDrawable(this));
 
@@ -40,7 +41,6 @@ public class GanjaMinerMain extends AbstractScript {
 
         antibanManager.disableAllFeatures();
 
-        getSkillTracker().start();
         guiBuilder.setCanDraw(true);
         view.setVisible(true);
     }

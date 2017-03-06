@@ -43,7 +43,7 @@ public class WalkToBankWithGuidanceState implements State {
             return false;
         } else {
             GameObject object;
-            if ((object = context.getGameObjects().closest(obj -> obj.getID() == ((ActionElement) currentElement).objectID && obj.distance(context.getLocalPlayer()) < 2)) != null) {
+            if ((object = context.getGameObjects().closest(obj -> obj.getID() == ((ActionElement) currentElement).objectID && obj.distance(context.getLocalPlayer()) < 5)) != null) {
                 if (object.interact(((ActionElement) currentElement).actionName)) {
                     AbstractScript.sleep(600, 900);
                     currentElement = chosenProfile.nextElement();
