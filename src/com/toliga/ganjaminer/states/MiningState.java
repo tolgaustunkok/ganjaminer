@@ -2,6 +2,7 @@ package com.toliga.ganjaminer.states;
 
 import com.toliga.ganjabots.core.AntibanManager;
 import com.toliga.ganjabots.core.State;
+import com.toliga.ganjabots.core.Utilities;
 import com.toliga.ganjaminer.GlobalSettings;
 import com.toliga.ganjaminer.models.RockTypes;
 import org.dreambot.api.methods.Calculations;
@@ -26,8 +27,6 @@ public class MiningState implements State {
     private Tile rockTile;
     private int objectId;
     private GameObject rock = null;
-
-    private static int standingStill;
 
     @Override
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
@@ -74,9 +73,17 @@ public class MiningState implements State {
             }
 
             if (workingRadius > 0) {
-                rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object) && GlobalSettings.START_TILE.distance(object) < workingRadius);
+                if (GlobalSettings.MANNERS) {
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object) && context.getPlayers().all(player -> object.getSurroundingArea(1).contains(player)).isEmpty() && GlobalSettings.START_TILE.distance(object) < workingRadius);
+                } else {
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object) && GlobalSettings.START_TILE.distance(object) < workingRadius);
+                }
             } else {
-                rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object));
+                if (GlobalSettings.MANNERS) {
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object) && context.getPlayers().all(player -> object.getSurroundingArea(1).contains(player)).isEmpty());
+                } else {
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object));
+                }
             }
         }
 
@@ -108,7 +115,7 @@ public class MiningState implements State {
 
         antibanManager.runFeatures();
 
-        if (isStandingStill(context)) {
+        if (Utilities.isStandingStill(context)) {
             interacting = false;
             rock = null;
             AbstractScript.log("Standing still...");
@@ -130,16 +137,5 @@ public class MiningState implements State {
         }
 
         return false;
-    }
-
-    private boolean isStandingStill(AbstractScript context) {
-
-        if (!context.getLocalPlayer().isAnimating()) {
-            standingStill++;
-        } else {
-            standingStill = 0;
-        }
-
-        return standingStill > 35;
     }
 }

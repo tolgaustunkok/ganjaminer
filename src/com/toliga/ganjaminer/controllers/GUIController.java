@@ -12,6 +12,7 @@ import com.toliga.ganjaminer.views.PathFinderGUI;
 import org.dreambot.api.script.AbstractScript;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -38,6 +39,9 @@ public class GUIController {
         view.getBankTypeComboBox().addActionListener(this::bankComboBox);
         view.getBtnCreatePath().addActionListener(this::createPath);
         view.getBtnSubmit().addActionListener(this::submitFeedback);
+        view.getCameraSlider().addChangeListener(this::cameraSliderChanged);
+        view.getMouseSlider().addChangeListener(this::mouseSliderChanged);
+        view.getTabCheckingSlider().addChangeListener(this::tabCheckingSliderChanged);
 
         saveManager = new SaveManager(GlobalSettings.SAVE_LOCATION + "save.xml");
 
@@ -53,6 +57,18 @@ public class GUIController {
                 }
             }
         }
+    }
+
+    private void tabCheckingSliderChanged(ChangeEvent changeEvent) {
+        GlobalSettings.TAB_PROBABILTY = view.getTabCheckingSlider().getValue() / 3000.0f;
+    }
+
+    private void mouseSliderChanged(ChangeEvent changeEvent) {
+        GlobalSettings.MOUSE_PROBABILTY = view.getMouseSlider().getValue() / 1000.0f;
+    }
+
+    private void cameraSliderChanged(ChangeEvent changeEvent) {
+        GlobalSettings.CAMERA_PROBABILTY = view.getCameraSlider().getValue() / 1000.0f;
     }
 
     private void bankComboBox(ActionEvent event) {
@@ -83,6 +99,11 @@ public class GUIController {
             GlobalSettings.START_TILE = context.getLocalPlayer().getTile();
             GlobalSettings.WORKING_RADIUS = (int) view.getWorkingRadiusSpinner().getValue();
         }
+
+        GlobalSettings.ENABLE_CAMERA = view.getChckbxEnableCamera().isSelected();
+        GlobalSettings.ENABLE_MOUSE = view.getChckbxEnableMouse().isSelected();
+        GlobalSettings.ENABLE_TAB = view.getChckbxEnableTabChecking().isSelected();
+        GlobalSettings.MANNERS = view.getChckbxManners().isSelected();
 
         GanjaMinerMain.STARTED = true;
         view.getBtnStart().setEnabled(false);

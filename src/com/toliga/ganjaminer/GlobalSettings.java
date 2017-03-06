@@ -17,6 +17,14 @@ public class GlobalSettings {
     public static boolean BANK_WHEN_FULL = true;
     public static boolean USE_PATH_CREATOR = false;
     public static boolean DEPOSIT_GEMS = false;
+    public static boolean ENABLE_CAMERA = false;
+    public static boolean ENABLE_MOUSE = false;
+    public static boolean ENABLE_TAB = false;
+    public static boolean MANNERS = false;
+
+    public static float CAMERA_PROBABILTY = 0.5f;
+    public static float MOUSE_PROBABILTY = 0.5f;
+    public static float TAB_PROBABILTY = 0.5f;
 
     public static PathProfile CHOSEN_BANK_GO_PROFILE = null;
     public static PathProfile CHOSEN_BANK_RETURN_PROFILE = null;

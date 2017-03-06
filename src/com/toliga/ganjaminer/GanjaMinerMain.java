@@ -18,7 +18,7 @@ import java.awt.*;
 @ScriptManifest(author = "GanjaSmuggler", category = Category.MINING, name = "Ganja Miner", description = "Ganja Miner description will be here.", version = 1.0)
 public class GanjaMinerMain extends AbstractScript {
 
-    public static final String VERSION = "0.1.4";
+    public static final String VERSION = "0.2.0";
     public static boolean STARTED = false;
     private StateScheduler stateScheduler;
     private GanjaMinerAntibanManager antibanManager;
@@ -35,9 +35,9 @@ public class GanjaMinerMain extends AbstractScript {
         GUIModel guiModel = new GUIModel();
         new GUIController(this, guiModel, view);
 
-        antibanManager.createFeature("RANDOM_CAMERA_ROTATION");
-        antibanManager.createFeature("RANDOM_MOUSE_MOVEMENT");
-        antibanManager.createFeature("RANDOM_TAB_CHECKING");
+        antibanManager.addFeature("RANDOM_CAMERA_ROTATION");
+        antibanManager.addFeature("RANDOM_MOUSE_MOVEMENT");
+        antibanManager.addFeature("RANDOM_TAB_CHECKING");
 
         antibanManager.disableAllFeatures();
 
