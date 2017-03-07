@@ -32,6 +32,10 @@ public class BotGUI extends JFrame {
     private JSlider mouseSlider;
     private JTextArea feedbackTextArea;
     private JButton btnSubmit;
+    private JCheckBox chckbxEnableCamera;
+    private JCheckBox chckbxEnableMouse;
+    private JCheckBox chckbxEnableTabChecking;
+    private JCheckBox chckbxManners;
 
     private JPanel contentPane;
 
@@ -149,14 +153,42 @@ public class BotGUI extends JFrame {
         JPanel panel_3 = new JPanel();
         panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Selected Rocks", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         settingsTab.add(panel_3, BorderLayout.CENTER);
-        panel_3.setLayout(new BorderLayout(0, 0));
+        GridBagLayout gbl_panel_3 = new GridBagLayout();
+        gbl_panel_3.columnWidths = new int[]{405, 0, 0};
+        gbl_panel_3.rowHeights = new int[]{114, 0};
+        gbl_panel_3.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+        gbl_panel_3.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+        panel_3.setLayout(gbl_panel_3);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setAutoscrolls(true);
-        panel_3.add(scrollPane, BorderLayout.CENTER);
+        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+        gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+        gbc_scrollPane.fill = GridBagConstraints.BOTH;
+        gbc_scrollPane.gridx = 0;
+        gbc_scrollPane.gridy = 0;
+        panel_3.add(scrollPane, gbc_scrollPane);
 
         mineTypesList = new JList(new DefaultListModel<String>());
         scrollPane.setViewportView(mineTypesList);
+
+        JPanel panel_7 = new JPanel();
+        GridBagConstraints gbc_panel_7 = new GridBagConstraints();
+        gbc_panel_7.fill = GridBagConstraints.BOTH;
+        gbc_panel_7.gridx = 1;
+        gbc_panel_7.gridy = 0;
+        panel_3.add(panel_7, gbc_panel_7);
+        GridBagLayout gbl_panel_7 = new GridBagLayout();
+        gbl_panel_7.columnWidths = new int[]{0, 0};
+        gbl_panel_7.rowHeights = new int[]{0, 0};
+        gbl_panel_7.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+        gbl_panel_7.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_7.setLayout(gbl_panel_7);
+
+        chckbxManners = new JCheckBox("Manners");
+        GridBagConstraints gbc_chckbxManners = new GridBagConstraints();
+        gbc_chckbxManners.gridx = 0;
+        gbc_chckbxManners.gridy = 0;
+        panel_7.add(chckbxManners, gbc_chckbxManners);
 
         JPanel magicTab = new JPanel();
         magicTab.setBorder(new TitledBorder(null, "Magic Configuration", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -193,9 +225,9 @@ public class BotGUI extends JFrame {
         antibanTab.setBorder(new TitledBorder(null, "Antiban Configuration", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         tabbedPane.addTab("Antiban", null, antibanTab, null);
         GridBagLayout gbl_antibanTab = new GridBagLayout();
-        gbl_antibanTab.columnWidths = new int[]{0, 0, 0};
+        gbl_antibanTab.columnWidths = new int[]{0, 0, 0, 0};
         gbl_antibanTab.rowHeights = new int[]{0, 0, 0, 0};
-        gbl_antibanTab.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        gbl_antibanTab.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
         gbl_antibanTab.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
         antibanTab.setLayout(gbl_antibanTab);
 
@@ -208,13 +240,22 @@ public class BotGUI extends JFrame {
         antibanTab.add(lblRandomCameraMovement, gbc_lblRandomCameraMovement);
 
         cameraSlider = new JSlider();
+        cameraSlider.setSnapToTicks(true);
         cameraSlider.setPaintTicks(true);
         cameraSlider.setMajorTickSpacing(10);
         GridBagConstraints gbc_cameraSlider = new GridBagConstraints();
-        gbc_cameraSlider.insets = new Insets(0, 0, 5, 0);
+        gbc_cameraSlider.fill = GridBagConstraints.HORIZONTAL;
+        gbc_cameraSlider.insets = new Insets(0, 0, 5, 5);
         gbc_cameraSlider.gridx = 1;
         gbc_cameraSlider.gridy = 0;
         antibanTab.add(cameraSlider, gbc_cameraSlider);
+
+        chckbxEnableCamera = new JCheckBox("Enable");
+        GridBagConstraints gbc_chckbxEnableCamera = new GridBagConstraints();
+        gbc_chckbxEnableCamera.insets = new Insets(0, 0, 5, 0);
+        gbc_chckbxEnableCamera.gridx = 2;
+        gbc_chckbxEnableCamera.gridy = 0;
+        antibanTab.add(chckbxEnableCamera, gbc_chckbxEnableCamera);
 
         JLabel lblRandomMouseMovement = new JLabel("Random Mouse Movement:");
         GridBagConstraints gbc_lblRandomMouseMovement = new GridBagConstraints();
@@ -225,13 +266,22 @@ public class BotGUI extends JFrame {
         antibanTab.add(lblRandomMouseMovement, gbc_lblRandomMouseMovement);
 
         mouseSlider = new JSlider();
+        mouseSlider.setSnapToTicks(true);
         mouseSlider.setPaintTicks(true);
         mouseSlider.setMajorTickSpacing(10);
         GridBagConstraints gbc_mouseSlider = new GridBagConstraints();
-        gbc_mouseSlider.insets = new Insets(0, 0, 5, 0);
+        gbc_mouseSlider.fill = GridBagConstraints.HORIZONTAL;
+        gbc_mouseSlider.insets = new Insets(0, 0, 5, 5);
         gbc_mouseSlider.gridx = 1;
         gbc_mouseSlider.gridy = 1;
         antibanTab.add(mouseSlider, gbc_mouseSlider);
+
+        chckbxEnableMouse = new JCheckBox("Enable");
+        GridBagConstraints gbc_chckbxEnableMouse = new GridBagConstraints();
+        gbc_chckbxEnableMouse.insets = new Insets(0, 0, 5, 0);
+        gbc_chckbxEnableMouse.gridx = 2;
+        gbc_chckbxEnableMouse.gridy = 1;
+        antibanTab.add(chckbxEnableMouse, gbc_chckbxEnableMouse);
 
         JLabel lblRandomTabChecking = new JLabel("Random Tab Checking:");
         GridBagConstraints gbc_lblRandomTabChecking = new GridBagConstraints();
@@ -242,12 +292,21 @@ public class BotGUI extends JFrame {
         antibanTab.add(lblRandomTabChecking, gbc_lblRandomTabChecking);
 
         tabCheckingSlider = new JSlider();
+        tabCheckingSlider.setSnapToTicks(true);
         tabCheckingSlider.setMajorTickSpacing(10);
         tabCheckingSlider.setPaintTicks(true);
         GridBagConstraints gbc_tabCheckingSlider = new GridBagConstraints();
+        gbc_tabCheckingSlider.fill = GridBagConstraints.HORIZONTAL;
+        gbc_tabCheckingSlider.insets = new Insets(0, 0, 0, 5);
         gbc_tabCheckingSlider.gridx = 1;
         gbc_tabCheckingSlider.gridy = 2;
         antibanTab.add(tabCheckingSlider, gbc_tabCheckingSlider);
+
+        chckbxEnableTabChecking = new JCheckBox("Enable");
+        GridBagConstraints gbc_chckbxEnableTabChecking = new GridBagConstraints();
+        gbc_chckbxEnableTabChecking.gridx = 2;
+        gbc_chckbxEnableTabChecking.gridy = 2;
+        antibanTab.add(chckbxEnableTabChecking, gbc_chckbxEnableTabChecking);
 
         JPanel pathCreatorTab = new JPanel();
         pathCreatorTab.setBorder(new TitledBorder(null, "Path Configuration", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -341,7 +400,6 @@ public class BotGUI extends JFrame {
 
         // TODO: Delete following lines upon completion
         tabbedPane.setEnabledAt(1, false);
-        tabbedPane.setEnabledAt(2, false);
     }
 
     public JButton getBtnStart() {
@@ -368,24 +426,8 @@ public class BotGUI extends JFrame {
         return removeButton;
     }
 
-    public JCheckBox getChckbxSuperHeat() {
-        return chckbxSuperHeat;
-    }
-
     public JCheckBox getChckbxDepositGems() {
         return chckbxDepositGems;
-    }
-
-    public JComboBox getComboBox() {
-        return comboBox;
-    }
-
-    public JCheckBox getChckbxHighAlch() {
-        return chckbxHighAlch;
-    }
-
-    public JTextField getTextField() {
-        return textField;
     }
 
     public JList getMineTypesList() { return mineTypesList; }
@@ -414,10 +456,6 @@ public class BotGUI extends JFrame {
         return chckbxUsePathCreator;
     }
 
-    public JSlider getCheckingSlider() {
-        return tabCheckingSlider;
-    }
-
     public JSlider getCameraSlider() {
         return cameraSlider;
     }
@@ -432,5 +470,25 @@ public class BotGUI extends JFrame {
 
     public JButton getBtnSubmit() {
         return btnSubmit;
+    }
+
+    public JCheckBox getChckbxEnableTabChecking() {
+        return chckbxEnableTabChecking;
+    }
+
+    public JCheckBox getChckbxEnableMouse() {
+        return chckbxEnableMouse;
+    }
+
+    public JCheckBox getChckbxEnableCamera() {
+        return chckbxEnableCamera;
+    }
+
+    public JSlider getTabCheckingSlider() {
+        return tabCheckingSlider;
+    }
+
+    public JCheckBox getChckbxManners() {
+        return chckbxManners;
     }
 }
