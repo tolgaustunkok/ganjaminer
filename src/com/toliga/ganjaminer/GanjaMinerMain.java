@@ -18,8 +18,8 @@ import java.awt.*;
 @ScriptManifest(author = "GanjaSmuggler", category = Category.MINING, name = "Ganja Miner", description = "Customizable mining script with various rock types and no location limitation. Banking, powermining, gem depositing and user-defined path creating features are supported.", version = 1.0)
 public class GanjaMinerMain extends AbstractScript {
 
-    public static final String VERSION = "0.1.5";
-    public static boolean STARTED = false;
+    public static final String VERSION = "0.1.6";
+    private boolean started = false;
     private StateScheduler stateScheduler;
     private GanjaMinerAntibanManager antibanManager;
     private InGameGUIBuilder guiBuilder;
@@ -47,7 +47,7 @@ public class GanjaMinerMain extends AbstractScript {
 
     @Override
     public int onLoop() {
-        if (STARTED) {
+        if (started) {
             stateScheduler.executeState(antibanManager);
         }
         return Calculations.random(50, 100);
@@ -55,7 +55,7 @@ public class GanjaMinerMain extends AbstractScript {
 
     @Override
     public void onPaint(Graphics graphics) {
-        if (STARTED) {
+        if (started) {
             guiBuilder.draw((Graphics2D) graphics);
         }
     }
@@ -64,5 +64,13 @@ public class GanjaMinerMain extends AbstractScript {
     public void onExit() {
         view.setVisible(false);
         view.dispose();
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    public boolean isStarted() {
+        return started;
     }
 }

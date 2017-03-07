@@ -84,13 +84,13 @@ public class GUIController {
             GlobalSettings.WORKING_RADIUS = (int) view.getWorkingRadiusSpinner().getValue();
         }
 
-        GanjaMinerMain.STARTED = true;
+        ((GanjaMinerMain) context).setStarted(true);
         view.getBtnStart().setEnabled(false);
         view.getBtnStop().setEnabled(true);
     }
 
     private void stop(ActionEvent event) {
-        GanjaMinerMain.STARTED = false;
+        ((GanjaMinerMain) context).setStarted(false);
         view.getBtnStart().setEnabled(true);
         view.getBtnStop().setEnabled(false);
     }
