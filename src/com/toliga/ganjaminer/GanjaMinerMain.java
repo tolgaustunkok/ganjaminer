@@ -66,6 +66,10 @@ public class GanjaMinerMain extends AbstractScript {
         view.dispose();
     }
 
+    public void reset() {
+        stateScheduler = new StateScheduler(this, new StartState());
+    }
+
     public void setStarted(boolean started) {
         this.started = started;
     }

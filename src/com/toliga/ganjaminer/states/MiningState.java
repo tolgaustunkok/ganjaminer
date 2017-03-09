@@ -32,7 +32,7 @@ public class MiningState implements State {
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
         if (GlobalSettings.DEBUG) AbstractScript.log("MINING");
 
-        if (!interacting && rock == null) {
+        if (!interacting) {
             RockTypes chosenRock = GlobalSettings.CHOSEN_ROCK_TYPES.get(Calculations.random(GlobalSettings.CHOSEN_ROCK_TYPES.size()));
             int workingRadius = GlobalSettings.WORKING_RADIUS;
             int[] mineName;
@@ -89,26 +89,25 @@ public class MiningState implements State {
 
         if (rock != null) {
             if (!interacting && rock.interact()) {
-                AbstractScript.sleep(700, 1200);
                 interacting = true;
                 rockTile = rock.getTile();
                 objectId = rock.getID();
-                AbstractScript.log("Interacting with " + rock.getName());
-            }
+                AbstractScript.sleep(700, 1200);
 
-            int count = 0;
-            GameObject[] objects = context.getGameObjects().getObjectsOnTile(rockTile);
-            for (GameObject object : objects) {
-                if (object.getID() != objectId) {
-                    count++;
+                int count = 0;
+                GameObject[] objects = context.getGameObjects().getObjectsOnTile(rockTile);
+                for (GameObject object : objects) {
+                    if (object.getID() != objectId) {
+                        count++;
+                    }
+                }
+
+                if (count == objects.length) {
+                    return true;
                 }
             }
 
             if (context.getInventory().isFull()) {
-                return true;
-            }
-
-            if (count == objects.length) {
                 return true;
             }
         }

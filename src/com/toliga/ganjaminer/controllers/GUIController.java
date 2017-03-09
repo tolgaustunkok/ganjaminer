@@ -106,13 +106,13 @@ public class GUIController {
         GlobalSettings.ENABLE_TAB = view.getChckbxEnableTabChecking().isSelected();
         GlobalSettings.MANNERS = view.getChckbxManners().isSelected();
 
-        GanjaMinerMain.STARTED = true;
         view.getBtnStart().setEnabled(false);
         view.getBtnStop().setEnabled(true);
     }
 
     private void stop(ActionEvent event) {
         ((GanjaMinerMain) context).setStarted(false);
+        ((GanjaMinerMain) context).reset();
         view.getBtnStart().setEnabled(true);
         view.getBtnStop().setEnabled(false);
     }
