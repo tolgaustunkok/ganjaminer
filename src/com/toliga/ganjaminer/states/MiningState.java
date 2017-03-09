@@ -24,8 +24,6 @@ public class MiningState implements State {
     private final int[] RUNITE_ID = { 7494 };
 
     private boolean interacting = false;
-    private Tile rockTile;
-    private int objectId;
     private GameObject rock = null;
 
     @Override
@@ -90,21 +88,10 @@ public class MiningState implements State {
         if (rock != null) {
             if (!interacting && rock.interact()) {
                 interacting = true;
-                rockTile = rock.getTile();
-                objectId = rock.getID();
-                AbstractScript.sleep(700, 1200);
+            }
 
-                int count = 0;
-                GameObject[] objects = context.getGameObjects().getObjectsOnTile(rockTile);
-                for (GameObject object : objects) {
-                    if (object.getID() != objectId) {
-                        count++;
-                    }
-                }
-
-                if (count == objects.length) {
-                    return true;
-                }
+            if (!rock.exists()) {
+                return true;
             }
 
             if (context.getInventory().isFull()) {
