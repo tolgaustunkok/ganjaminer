@@ -6,7 +6,6 @@ import com.toliga.ganjabots.core.Utilities;
 import com.toliga.ganjaminer.GlobalSettings;
 import com.toliga.ganjaminer.models.RockTypes;
 import org.dreambot.api.methods.Calculations;
-import org.dreambot.api.methods.map.Tile;
 import org.dreambot.api.script.AbstractScript;
 import org.dreambot.api.wrappers.interactive.GameObject;
 
