@@ -71,15 +71,15 @@ public class MiningState implements State {
 
             if (workingRadius > 0) {
                 if (GlobalSettings.MANNERS) {
-                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object) && context.getPlayers().all(player -> !player.equals(context.getLocalPlayer()) && object.getSurroundingArea(1).contains(player)).isEmpty() && GlobalSettings.START_TILE.distance(object) < workingRadius);
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getPlayers().all(player -> !player.equals(context.getLocalPlayer()) && object.getSurroundingArea(1).contains(player)).isEmpty() && GlobalSettings.START_TILE.distance(object) < workingRadius);
                 } else {
-                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object) && GlobalSettings.START_TILE.distance(object) < workingRadius);
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && GlobalSettings.START_TILE.distance(object) < workingRadius);
                 }
             } else {
                 if (GlobalSettings.MANNERS) {
-                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object) && context.getPlayers().all(player -> !player.equals(context.getLocalPlayer()) && object.getSurroundingArea(1).contains(player)).isEmpty());
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getPlayers().all(player -> !player.equals(context.getLocalPlayer()) && object.getSurroundingArea(1).contains(player)).isEmpty());
                 } else {
-                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getMap().canReach(object));
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName));
                 }
             }
         }
@@ -104,6 +104,7 @@ public class MiningState implements State {
             interacting = false;
             rock = null;
             AbstractScript.log("Standing still...");
+            Utilities.setStandingStillToZero();
         }
 
         return false;

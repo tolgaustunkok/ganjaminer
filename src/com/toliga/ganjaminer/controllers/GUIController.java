@@ -60,15 +60,15 @@ public class GUIController {
     }
 
     private void tabCheckingSliderChanged(ChangeEvent changeEvent) {
-        GlobalSettings.TAB_PROBABILTY = view.getTabCheckingSlider().getValue() / 3000.0f;
+        GlobalSettings.TAB_PROBABILTY = view.getTabCheckingSlider().getValue() / 4000.0f;
     }
 
     private void mouseSliderChanged(ChangeEvent changeEvent) {
-        GlobalSettings.MOUSE_PROBABILTY = view.getMouseSlider().getValue() / 1000.0f;
+        GlobalSettings.MOUSE_PROBABILTY = view.getMouseSlider().getValue() / 2000.0f;
     }
 
     private void cameraSliderChanged(ChangeEvent changeEvent) {
-        GlobalSettings.CAMERA_PROBABILTY = view.getCameraSlider().getValue() / 1000.0f;
+        GlobalSettings.CAMERA_PROBABILTY = view.getCameraSlider().getValue() / 2000.0f;
     }
 
     private void bankComboBox(ActionEvent event) {
@@ -124,8 +124,8 @@ public class GUIController {
     }
 
     private void remove(ActionEvent event) {
+        guiModel.removeChosenRockType(view.getMineTypesList().getSelectedIndex());
         ((DefaultListModel<String>)(view.getMineTypesList().getModel())).remove(view.getMineTypesList().getSelectedIndex());
-        guiModel.removeChosenRockType((RockTypes) view.getMineTypesList().getSelectedValue());
     }
 
     private void createPath(ActionEvent event) {

@@ -11,7 +11,7 @@ public class GUIModel {
         GlobalSettings.CHOSEN_ROCK_TYPES.add(chosenRockType);
     }
 
-    public void removeChosenRockType(RockTypes chosenRockType) {
-        GlobalSettings.CHOSEN_ROCK_TYPES.remove(GlobalSettings.CHOSEN_ROCK_TYPES.indexOf(chosenRockType));
+    public void removeChosenRockType(int index) {
+        GlobalSettings.CHOSEN_ROCK_TYPES.remove(index);
     }
 }
