@@ -24,7 +24,7 @@ public class CheckInventoryState implements State {
             } else {
                 nextState = new DropState();
             }
-        } else if (context.getEquipment().contains(item -> item.getName().contains("pickaxe"))) {
+        } else {
             nextState = new MiningState();
         }
 

@@ -24,6 +24,7 @@ public class MiningState implements State {
 
     private boolean interacting = false;
     private GameObject rock = null;
+    private State nextState = new CheckInventoryState();
 
     @Override
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
@@ -82,6 +83,11 @@ public class MiningState implements State {
                     rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName));
                 }
             }
+
+            if (rock == null) {
+                nextState = new WorldHopState();
+                return true;
+            }
         }
 
         if (rock != null) {
@@ -112,7 +118,7 @@ public class MiningState implements State {
 
     @Override
     public State next() {
-        return new CheckInventoryState();
+        return nextState;
     }
 
     private boolean isIn(int num, int[] arr) {

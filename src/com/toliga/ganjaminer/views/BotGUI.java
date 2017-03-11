@@ -36,6 +36,7 @@ public class BotGUI extends JFrame {
     private JCheckBox chckbxEnableMouse;
     private JCheckBox chckbxEnableTabChecking;
     private JCheckBox chckbxManners;
+    private JCheckBox chckbxMember;
 
     private JPanel contentPane;
 
@@ -81,7 +82,7 @@ public class BotGUI extends JFrame {
         panel_2.setLayout(gbl_panel_2);
 
         bankTypeComboBox = new JComboBox();
-        bankTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Bank", "Powermine"}));
+        bankTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Bank", "Powermine", "World Hopping"}));
         GridBagConstraints gbc_bankTypeComboBox = new GridBagConstraints();
         gbc_bankTypeComboBox.fill = GridBagConstraints.BOTH;
         gbc_bankTypeComboBox.insets = new Insets(0, 0, 5, 5);
@@ -179,16 +180,25 @@ public class BotGUI extends JFrame {
         panel_3.add(panel_7, gbc_panel_7);
         GridBagLayout gbl_panel_7 = new GridBagLayout();
         gbl_panel_7.columnWidths = new int[]{0, 0};
-        gbl_panel_7.rowHeights = new int[]{0, 0};
+        gbl_panel_7.rowHeights = new int[]{0, 0, 0};
         gbl_panel_7.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-        gbl_panel_7.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        gbl_panel_7.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
         panel_7.setLayout(gbl_panel_7);
 
         chckbxManners = new JCheckBox("Manners");
         GridBagConstraints gbc_chckbxManners = new GridBagConstraints();
+        gbc_chckbxManners.anchor = GridBagConstraints.WEST;
+        gbc_chckbxManners.insets = new Insets(0, 0, 5, 0);
         gbc_chckbxManners.gridx = 0;
         gbc_chckbxManners.gridy = 0;
         panel_7.add(chckbxManners, gbc_chckbxManners);
+
+        chckbxMember = new JCheckBox("Member?");
+        GridBagConstraints gbc_chckbxMember = new GridBagConstraints();
+        gbc_chckbxMember.anchor = GridBagConstraints.WEST;
+        gbc_chckbxMember.gridx = 0;
+        gbc_chckbxMember.gridy = 1;
+        panel_7.add(chckbxMember, gbc_chckbxMember);
 
         JPanel magicTab = new JPanel();
         magicTab.setBorder(new TitledBorder(null, "Magic Configuration", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -490,5 +500,9 @@ public class BotGUI extends JFrame {
 
     public JCheckBox getChckbxManners() {
         return chckbxManners;
+    }
+
+    public JCheckBox getChckbxMember() {
+        return chckbxMember;
     }
 }

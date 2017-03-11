@@ -21,6 +21,8 @@ public class GlobalSettings {
     public static boolean ENABLE_MOUSE = false;
     public static boolean ENABLE_TAB = false;
     public static boolean MANNERS = false;
+    public static boolean WORLD_HOP = false;
+    public static boolean IS_MEMBER = false;
 
     public static float CAMERA_PROBABILTY = 0.5f;
     public static float MOUSE_PROBABILTY = 0.5f;

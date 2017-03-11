@@ -76,8 +76,11 @@ public class GUIController {
 
         if (source.getSelectedIndex() == 0) {
             guiModel.setBank(true);
-        } else {
+        } else if (source.getSelectedIndex() == 1) {
             guiModel.setBank(false);
+        } else if (source.getSelectedIndex() == 2) {
+            guiModel.setBank(true);
+            GlobalSettings.WORLD_HOP = true;
         }
     }
 
@@ -105,6 +108,7 @@ public class GUIController {
         GlobalSettings.ENABLE_MOUSE = view.getChckbxEnableMouse().isSelected();
         GlobalSettings.ENABLE_TAB = view.getChckbxEnableTabChecking().isSelected();
         GlobalSettings.MANNERS = view.getChckbxManners().isSelected();
+        GlobalSettings.IS_MEMBER = view.getChckbxMember().isSelected();
 
         view.getBtnStart().setEnabled(false);
         view.getBtnStop().setEnabled(true);
