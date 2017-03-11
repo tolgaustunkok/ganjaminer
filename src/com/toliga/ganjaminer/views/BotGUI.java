@@ -193,7 +193,7 @@ public class BotGUI extends JFrame {
         gbc_chckbxManners.gridy = 0;
         panel_7.add(chckbxManners, gbc_chckbxManners);
 
-        chckbxMember = new JCheckBox("Member?");
+        chckbxMember = new JCheckBox("Member");
         GridBagConstraints gbc_chckbxMember = new GridBagConstraints();
         gbc_chckbxMember.anchor = GridBagConstraints.WEST;
         gbc_chckbxMember.gridx = 0;
