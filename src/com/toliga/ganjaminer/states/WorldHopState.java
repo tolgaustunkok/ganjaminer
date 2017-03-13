@@ -18,23 +18,21 @@ public class WorldHopState implements State {
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
         if (GlobalSettings.DEBUG) AbstractScript.log("WORLD_HOP");
 
-        if (GlobalSettings.WORLD_HOP) {
-            if (chosenWorlds == null) {
-                chosenWorlds = context.getWorlds().all(world -> (GlobalSettings.IS_MEMBER ? world.isMembers() : world.isF2P())
-                            && (context.getSkills().getTotalLevel() >= world.getMinimumLevel())
-                            && !world.isPVP()
-                            && !world.isDeadmanMode()
-                            && !world.isHighRisk()
-                );
-                sortWorlds(chosenWorlds);
-            }
-
-            context.getWorldHopper().hopWorld(chosenWorlds.get(worldIndex++));
-            if (worldIndex >= chosenWorlds.size()) {
-                worldIndex = 0;
-            }
-            AbstractScript.sleep(3500, 4000);
+        if (chosenWorlds == null) {
+            chosenWorlds = context.getWorlds().all(world -> (GlobalSettings.IS_MEMBER ? world.isMembers() : world.isF2P())
+                        && (context.getSkills().getTotalLevel() >= world.getMinimumLevel())
+                        && !world.isPVP()
+                        && !world.isDeadmanMode()
+                        && !world.isHighRisk()
+            );
+            sortWorlds(chosenWorlds);
         }
+
+        context.getWorldHopper().hopWorld(chosenWorlds.get(worldIndex++));
+        if (worldIndex >= chosenWorlds.size()) {
+            worldIndex = 0;
+        }
+        AbstractScript.sleep(3500, 4000);
 
         return true;
     }

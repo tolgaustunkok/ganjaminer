@@ -5,7 +5,6 @@ import com.toliga.ganjabots.graphics.InGameGUIBuilder;
 import com.toliga.ganjaminer.controllers.GUIController;
 import com.toliga.ganjaminer.drawables.MiningDrawable;
 import com.toliga.ganjaminer.models.GUIModel;
-import com.toliga.ganjaminer.states.CheckInventoryState;
 import com.toliga.ganjaminer.states.StartState;
 import com.toliga.ganjaminer.views.BotGUI;
 import org.dreambot.api.methods.Calculations;

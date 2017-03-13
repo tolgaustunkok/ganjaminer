@@ -23,10 +23,8 @@ public class BankState implements State {
 
         if (context.getBank().isOpen()) {
             if (GlobalSettings.DEPOSIT_GEMS && context.getInventory().contains(item -> item.getName().contains("Uncut"))) {
-                int previousUncutItemCount = context.getInventory().count(item -> item.getName().contains("Uncut"));
-
-                context.getBank().depositAll(item -> item.getName().startsWith("Uncut"));
-                AbstractScript.sleepUntil(() -> context.getInventory().count(item -> item.getName().contains("Uncut")) < previousUncutItemCount, 3000);
+                context.getBank().depositAll(item -> item.getName().contains("Uncut"));
+                AbstractScript.sleepUntil(() -> context.getInventory().count(item -> item.getName().contains("Uncut")) == 0, 10000);
             }
 
             if (itemIndex < GlobalSettings.CHOSEN_ROCK_TYPES.size()) {

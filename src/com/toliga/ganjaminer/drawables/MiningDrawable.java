@@ -12,10 +12,12 @@ public class MiningDrawable implements Drawable {
 
     private AbstractScript context;
     private Image image;
+    private int startLevel;
 
     public MiningDrawable(AbstractScript context) {
         this.context = context;
         image = Utilities.LoadImage("http://www.account4rs.com/images/skill_powerleveling/mining.png", 15, 15);
+        startLevel = context.getSkills().getRealLevel(Skill.MINING);
     }
 
     @Override
@@ -38,6 +40,6 @@ public class MiningDrawable implements Drawable {
                 TimeUnit.MILLISECONDS.toSeconds(timeToLevelUp) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeToLevelUp))), 420, 416);
 
         int realLevel = context.getSkills().getRealLevel(Skill.MINING);
-        graphics.drawString(String.valueOf(realLevel), 420, 433);
+        graphics.drawString(startLevel + " (+" + (realLevel - startLevel) + ")", 420, 433);
     }
 }

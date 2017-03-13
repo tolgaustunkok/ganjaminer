@@ -48,9 +48,7 @@ public class WalkToBankWithGuidanceState implements State {
                     AbstractScript.sleep(600, 900);
                     currentElement = chosenProfile.nextElement();
                 }
-            }/* else {
-                currentElement = chosenProfile.nextElement();
-            }*/
+            }
             return false;
         }
     }

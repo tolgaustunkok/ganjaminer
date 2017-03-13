@@ -84,7 +84,7 @@ public class MiningState implements State {
                 }
             }
 
-            if (rock == null) {
+            if (rock == null && GlobalSettings.WORLD_HOP) {
                 nextState = new WorldHopState();
                 return true;
             }
