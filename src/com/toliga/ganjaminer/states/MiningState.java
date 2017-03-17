@@ -99,6 +99,7 @@ public class MiningState implements State {
         if (rock != null) {
             if (!interacting && rock.interact()) {
                 interacting = true;
+                context.getMouse().move();
             }
 
             if (!rock.exists()) {
