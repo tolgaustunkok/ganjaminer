@@ -18,15 +18,16 @@ import java.util.List;
 
 public class GUIController {
 
-    private GUIModel guiModel;
+    private GUIModel model;
     private BotGUI view;
     private AbstractScript context;
     private SaveManager saveManager;
 
-    public GUIController(AbstractScript context, GUIModel GUIModelModel, BotGUI view) {
-        this.guiModel = GUIModelModel;
+    public GUIController(AbstractScript context, BotGUI view) {
+        this.model = GUIModel.getInstance();
         this.view = view;
         this.context = context;
+
 
         init();
     }
@@ -60,55 +61,55 @@ public class GUIController {
     }
 
     private void tabCheckingSliderChanged(ChangeEvent changeEvent) {
-        GlobalSettings.TAB_PROBABILTY = view.getTabCheckingSlider().getValue() / 4000.0f;
+        model.setTabProbability(view.getTabCheckingSlider().getValue() / 4000.0f);
     }
 
     private void mouseSliderChanged(ChangeEvent changeEvent) {
-        GlobalSettings.MOUSE_PROBABILTY = view.getMouseSlider().getValue() / 2000.0f;
+        model.setMouseProbability(view.getMouseSlider().getValue() / 2000.0f);
     }
 
     private void cameraSliderChanged(ChangeEvent changeEvent) {
-        GlobalSettings.CAMERA_PROBABILTY = view.getCameraSlider().getValue() / 2000.0f;
+        model.setCameraProbability(view.getCameraSlider().getValue() / 2000.0f);
     }
 
     private void bankComboBox(ActionEvent event) {
         JComboBox source = (JComboBox) event.getSource();
 
         if (source.getSelectedIndex() == 0) {
-            guiModel.setBank(true);
+            model.setBankWhenFull(true);
         } else if (source.getSelectedIndex() == 1) {
-            guiModel.setBank(false);
+            model.setBankWhenFull(false);
         } else if (source.getSelectedIndex() == 2) {
-            guiModel.setBank(true);
-            GlobalSettings.WORLD_HOP = true;
+            model.setBankWhenFull(true);
+            model.setWorldHop(true);
         }
     }
 
     private void start(ActionEvent event) {
         AbstractScript.log("Started");
 
-        GlobalSettings.DEPOSIT_GEMS = view.getChckbxDepositGems().isSelected();
-        GlobalSettings.USE_PATH_CREATOR = view.getChckbxUsePathCreator().isSelected();
+        model.setDepositGems(view.getChckbxDepositGems().isSelected());
+        model.setUsePathCreator(view.getChckbxUsePathCreator().isSelected());
 
-        if (GlobalSettings.USE_PATH_CREATOR) {
+        if (model.isUsePathCreator()) {
             int selectedIndex = view.getListWalkToBank().getSelectedIndex();
-            GlobalSettings.CHOSEN_BANK_GO_PROFILE = (PathProfile) view.getListWalkToBank().getModel().getElementAt(selectedIndex);
+            model.setChosenBankGoProfile((PathProfile) view.getListWalkToBank().getModel().getElementAt(selectedIndex));
 
             selectedIndex = view.getListWalkFromBank().getSelectedIndex();
-            GlobalSettings.CHOSEN_BANK_RETURN_PROFILE = (PathProfile) view.getListWalkFromBank().getModel().getElementAt(selectedIndex);
+            model.setChosenBankReturnProfile((PathProfile) view.getListWalkFromBank().getModel().getElementAt(selectedIndex));
         }
 
         if ((int) view.getWorkingRadiusSpinner().getValue() > 0) {
-            GlobalSettings.START_TILE = context.getLocalPlayer().getTile();
-            GlobalSettings.WORKING_RADIUS = (int) view.getWorkingRadiusSpinner().getValue();
+            model.setStartTile(context.getLocalPlayer().getTile());
+            model.setWorkingRadius((int) view.getWorkingRadiusSpinner().getValue());
         }
 
         ((GanjaMinerMain) context).setStarted(true);
-        GlobalSettings.ENABLE_CAMERA = view.getChckbxEnableCamera().isSelected();
-        GlobalSettings.ENABLE_MOUSE = view.getChckbxEnableMouse().isSelected();
-        GlobalSettings.ENABLE_TAB = view.getChckbxEnableTabChecking().isSelected();
-        GlobalSettings.MANNERS = view.getChckbxManners().isSelected();
-        GlobalSettings.IS_MEMBER = view.getChckbxMember().isSelected();
+        model.setEnableCamera(view.getChckbxEnableCamera().isSelected());
+        model.setEnableMouse(view.getChckbxEnableMouse().isSelected());
+        model.setEnableTab(view.getChckbxEnableTabChecking().isSelected());
+        model.setManners(view.getChckbxManners().isSelected());
+        model.setMember(view.getChckbxMember().isSelected());
 
         view.getBtnStart().setEnabled(false);
         view.getBtnStop().setEnabled(true);
@@ -124,11 +125,11 @@ public class GUIController {
     private void add(ActionEvent event) {
         RockTypes chosenRockType = (RockTypes) view.getMineTypeComboBox().getSelectedItem();
         ((DefaultListModel<String>)(view.getMineTypesList().getModel())).addElement(chosenRockType.name());
-        guiModel.addChosenRockType(chosenRockType);
+        model.addChosenRockType(chosenRockType);
     }
 
     private void remove(ActionEvent event) {
-        guiModel.removeChosenRockType(view.getMineTypesList().getSelectedIndex());
+        model.removeChosenRockType(view.getMineTypesList().getSelectedIndex());
         ((DefaultListModel<String>)(view.getMineTypesList().getModel())).remove(view.getMineTypesList().getSelectedIndex());
     }
 

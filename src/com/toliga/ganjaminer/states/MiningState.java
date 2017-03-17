@@ -4,6 +4,7 @@ import com.toliga.ganjabots.core.AntibanManager;
 import com.toliga.ganjabots.core.State;
 import com.toliga.ganjabots.core.Utilities;
 import com.toliga.ganjaminer.GlobalSettings;
+import com.toliga.ganjaminer.models.GUIModel;
 import com.toliga.ganjaminer.models.RockTypes;
 import org.dreambot.api.methods.Calculations;
 import org.dreambot.api.script.AbstractScript;
@@ -25,14 +26,19 @@ public class MiningState implements State {
     private boolean interacting = false;
     private GameObject rock = null;
     private State nextState = new CheckInventoryState();
+    private GUIModel model;
+
+    public MiningState() {
+        this.model = GUIModel.getInstance();
+    }
 
     @Override
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
         if (GlobalSettings.DEBUG) AbstractScript.log("MINING");
 
         if (!interacting) {
-            RockTypes chosenRock = GlobalSettings.CHOSEN_ROCK_TYPES.get(Calculations.random(GlobalSettings.CHOSEN_ROCK_TYPES.size()));
-            int workingRadius = GlobalSettings.WORKING_RADIUS;
+            RockTypes chosenRock = model.getChosenRockTypes().get(Calculations.random(model.getChosenRockTypes().size()));
+            int workingRadius = model.getWorkingRadius();
             int[] mineName;
 
             switch (chosenRock) {
@@ -71,20 +77,20 @@ public class MiningState implements State {
             }
 
             if (workingRadius > 0) {
-                if (GlobalSettings.MANNERS) {
-                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getPlayers().all(player -> !player.equals(context.getLocalPlayer()) && object.getSurroundingArea(1).contains(player)).isEmpty() && GlobalSettings.START_TILE.distance(object) < workingRadius);
+                if (model.isManners()) {
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getPlayers().all(player -> !player.equals(context.getLocalPlayer()) && object.getSurroundingArea(1).contains(player)).isEmpty() && model.getStartTile().distance(object) < workingRadius);
                 } else {
-                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && GlobalSettings.START_TILE.distance(object) < workingRadius);
+                    rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && model.getStartTile().distance(object) < workingRadius);
                 }
             } else {
-                if (GlobalSettings.MANNERS) {
+                if (model.isManners()) {
                     rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName) && context.getPlayers().all(player -> !player.equals(context.getLocalPlayer()) && object.getSurroundingArea(1).contains(player)).isEmpty());
                 } else {
                     rock = context.getGameObjects().closest(object -> object.getName().equals("Rocks") && isIn(object.getID(), mineName));
                 }
             }
 
-            if (rock == null && GlobalSettings.WORLD_HOP) {
+            if (rock == null && model.isWorldHop()) {
                 nextState = new WorldHopState();
                 return true;
             }

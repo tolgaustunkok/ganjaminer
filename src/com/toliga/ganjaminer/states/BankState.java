@@ -4,6 +4,7 @@ import com.toliga.ganjabots.core.AntibanManager;
 import com.toliga.ganjabots.core.State;
 import com.toliga.ganjabots.core.Utilities;
 import com.toliga.ganjaminer.GlobalSettings;
+import com.toliga.ganjaminer.models.GUIModel;
 import org.dreambot.api.methods.tabs.Tab;
 import org.dreambot.api.script.AbstractScript;
 
@@ -11,6 +12,11 @@ public class BankState implements State {
 
     private int itemIndex = 0;
     private boolean finishedItem = false;
+    private GUIModel model;
+
+    public BankState() {
+        this.model = GUIModel.getInstance();
+    }
 
     @Override
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
@@ -22,13 +28,13 @@ public class BankState implements State {
         }
 
         if (context.getBank().isOpen()) {
-            if (GlobalSettings.DEPOSIT_GEMS && context.getInventory().contains(item -> item.getName().contains("Uncut"))) {
+            if (model.isDepositGems() && context.getInventory().contains(item -> item.getName().contains("Uncut"))) {
                 context.getBank().depositAll(item -> item.getName().contains("Uncut"));
                 AbstractScript.sleepUntil(() -> context.getInventory().count(item -> item.getName().contains("Uncut")) == 0, 10000);
             }
 
-            if (itemIndex < GlobalSettings.CHOSEN_ROCK_TYPES.size()) {
-                String itemName = GlobalSettings.CHOSEN_ROCK_TYPES.get(itemIndex).name();
+            if (itemIndex < model.getChosenRockTypes().size()) {
+                String itemName = model.getChosenRockTypes().get(itemIndex).name();
                 AbstractScript.log("Item name: " + itemName + " ore");
                 context.getBank().depositAll(itemName.equals("Clay") || itemName.equals("Coal") ? itemName : itemName + " ore");
                 AbstractScript.sleepUntil(() -> !context.getInventory().contains(itemName), 3000);
@@ -50,7 +56,7 @@ public class BankState implements State {
 
     @Override
     public State next() {
-        if (GlobalSettings.USE_PATH_CREATOR) {
+        if (model.isUsePathCreator()) {
             return new WalkFromBankWithGuidanceState();
         }
         return new WalkFromBankState();

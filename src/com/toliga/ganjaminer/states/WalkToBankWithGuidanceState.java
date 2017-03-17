@@ -8,6 +8,7 @@ import com.toliga.ganjabots.path.Element;
 import com.toliga.ganjabots.path.PathElement;
 import com.toliga.ganjabots.path.PathProfile;
 import com.toliga.ganjaminer.GlobalSettings;
+import com.toliga.ganjaminer.models.GUIModel;
 import org.dreambot.api.methods.map.Tile;
 import org.dreambot.api.script.AbstractScript;
 import org.dreambot.api.wrappers.interactive.GameObject;
@@ -16,9 +17,10 @@ public class WalkToBankWithGuidanceState implements State {
 
     private Element currentElement;
     private PathProfile chosenProfile;
+    private GUIModel model = GUIModel.getInstance();
 
     public WalkToBankWithGuidanceState() {
-        chosenProfile = GlobalSettings.CHOSEN_BANK_GO_PROFILE;
+        chosenProfile = model.getChosenBankGoProfile();
         currentElement = chosenProfile.nextElement();
     }
 

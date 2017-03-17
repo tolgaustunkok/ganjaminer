@@ -3,6 +3,7 @@ package com.toliga.ganjaminer.states;
 import com.toliga.ganjabots.core.AntibanManager;
 import com.toliga.ganjabots.core.State;
 import com.toliga.ganjaminer.GlobalSettings;
+import com.toliga.ganjaminer.models.GUIModel;
 import org.dreambot.api.script.AbstractScript;
 
 public class DropState implements State {
@@ -11,7 +12,7 @@ public class DropState implements State {
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
         if (GlobalSettings.DEBUG) AbstractScript.log("DROP");
 
-        if (!GlobalSettings.DEPOSIT_GEMS) {
+        if (!GUIModel.getInstance().isDepositGems()) {
             context.getInventory().dropAll(item -> item.getName().startsWith("Uncut"));
         }
         context.getInventory().dropAll(item -> item.getName().equals("Clay") || item.getName().equals("Coal") || item.getName().contains("ore"));

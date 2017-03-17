@@ -3,6 +3,7 @@ package com.toliga.ganjaminer.states;
 import com.toliga.ganjabots.core.AntibanManager;
 import com.toliga.ganjabots.core.State;
 import com.toliga.ganjaminer.GlobalSettings;
+import com.toliga.ganjaminer.models.GUIModel;
 import org.dreambot.api.methods.world.World;
 import org.dreambot.api.script.AbstractScript;
 
@@ -13,13 +14,14 @@ public class WorldHopState implements State {
 
     private static int worldIndex = 0;
     private static List<World> chosenWorlds = null;
+    private GUIModel model = GUIModel.getInstance();
 
     @Override
     public boolean execute(AbstractScript context, AntibanManager antibanManager) {
         if (GlobalSettings.DEBUG) AbstractScript.log("WORLD_HOP");
 
         if (chosenWorlds == null) {
-            chosenWorlds = context.getWorlds().all(world -> (GlobalSettings.IS_MEMBER ? world.isMembers() : world.isF2P())
+            chosenWorlds = context.getWorlds().all(world -> (model.isMember() ? world.isMembers() : world.isF2P())
                         && (context.getSkills().getTotalLevel() >= world.getMinimumLevel())
                         && !world.isPVP()
                         && !world.isDeadmanMode()
